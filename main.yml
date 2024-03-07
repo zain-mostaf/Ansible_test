@@ -1,0 +1,7 @@
+---
+- name: Run Three playbooks on three ansible servers
+  hosts: your_hosts
+  tasks:
+    - name run ansible command line
+      ansible.builtin.command: ansible-playbook -i 172.200.126.4  playbook1.yml
+# playbook2.yml ,Jump_server2,jump_server3 playbook3.yml --forks 3
