@@ -1,7 +1,32 @@
 ---
 - name: IBM Schematics Automation with Ansible
-  hosts: all
+  hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
-    - name: Execute Ansible Playbook on Ansible Control Server 1
-      ansible.builtin.shell: /home/zaina/sch.sh
+    - name: Execute Ansible Playbooks Simultaneously
+      async: 600  # Set the maximum runtime for the tasks
+      poll: 0     # Immediately return after launching the tasks
+      parallel: 0 # Run tasks in parallel
+      delegate_to: localhost
+      tasks:
+        - name: Execute Ansible Playbook on Ansible Control Server 1
+          ansible.builtin.shell: ansible-playbook -i /AnsiblePlaybooks/Connectivity_Health_Report/inventory /AnsiblePlaybooks/Connectivity_Health_Report/main.yaml
+          environment:
+            ANSIBLE_CONFIG: /home/zaina/list_consumers/ansible.cfg
+          register: ansible_output1
+
+        - name: Execute Ansible Playbook on Ansible Control Server 2
+          ansible.builtin.shell: ansible-playbook -i /home/zaina/list_consumers/inventory /home/zaina/list_consumers/main.yaml
+          environment:
+            ANSIBLE_CONFIG: /AnsiblePlaybooks/Connectivity_Health_Report/ansible.cfg
+          register: ansible_output2
+
+    - name: Display Ansible Playbook 1 Output
+      debug:
+        var: ansible_output1.stdout_lines
+
+    - name: Display Ansible Playbook 2 Output
+      debug:
+        var: ansible_output2.stdout_lines
+
