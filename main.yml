@@ -4,11 +4,5 @@
   connection: local
   gather_facts: no
   tasks:
-    - name: Execute Ansible Playbooks Simultaneously
-      async: 600  # Set the maximum runtime for the tasks
-      poll: 0     # Immediately return after launching the tasks
-      parallel: 0 # Run tasks in parallel
-      delegate_to: localhost
-      tasks:
-        - name: Execute Ansible Playbook on Ansible Control Server 1
-          ansible.builtin.shell: ansible-playbook -i /AnsiblePlaybooks/collecting_consumers/inventory /AnsiblePlaybooks/collecting_consumers/main.yaml
+    - name: Execute Ansible Playbook on Ansible Control Server 1
+      ansible.builtin.shell: ansible-playbook -i /AnsiblePlaybooks/collecting_consumers/inventory /AnsiblePlaybooks/collecting_consumers/main.yaml
