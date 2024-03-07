@@ -1,8 +1,7 @@
 ---
 - name: IBM Schematics Automation with Ansible
   hosts: all
-  connection: local
   gather_facts: no
   tasks:
     - name: Execute Ansible Playbook on Ansible Control Server 1
-      ansible.builtin.shell: ansible-playbook -i /AnsiblePlaybooks/collecting_consumers/inventory /AnsiblePlaybooks/collecting_consumers/main.yaml
+      ansible.builtin.shell: /root/sch.sh
