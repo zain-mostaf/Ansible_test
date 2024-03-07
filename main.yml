@@ -1,6 +1,19 @@
 ---
-- name: Run Three playbooks on three ansible servers
-  hosts: your_hosts
+- name: IBM Schematics Automation with Ansible
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
   tasks:
-    - name run ansible command line
-      ansible.builtin.command: ansible-playbook -i 172.200.126.4  ./playbook1.yml
+    - name: Execute Ansible Playbook on Target Servers
+      ansible.builtin.shell: |
+        ansible-playbook -i /AnsiblePlaybooks/collecting_consumers/inventory /AnsiblePlaybooks/collecting_consumers/main.yaml
+      environment:
+        ANSIBLE_CONFIG: /AnsiblePlaybooks/collecting_consumers/config
+      delegate_to: localhost
+      register: ansible_output
+
+    - name: Display Ansible Playbook Output
+      debug:
+        var: ansible_output.stdout_lines
+
