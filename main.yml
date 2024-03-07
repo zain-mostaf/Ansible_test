@@ -1,6 +1,6 @@
 ---
 - name: IBM Schematics Automation with Ansible
-  hosts: localhost
+  hosts: all
   connection: local
   gather_facts: no
   tasks:
