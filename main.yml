@@ -8,12 +8,3 @@
     - name: Execute Ansible Playbook on Target Servers
       ansible.builtin.shell: |
         ansible-playbook -i /AnsiblePlaybooks/collecting_consumers/inventory /AnsiblePlaybooks/collecting_consumers/main.yaml
-      environment:
-        ANSIBLE_CONFIG: /AnsiblePlaybooks/collecting_consumers/ansible.cfg
-      delegate_to: localhost
-      register: ansible_output
-
-    - name: Display Ansible Playbook Output
-      debug:
-        var: ansible_output.stdout_lines
-
