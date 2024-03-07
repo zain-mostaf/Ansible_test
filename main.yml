@@ -4,4 +4,4 @@
   gather_facts: no
   tasks:
     - name: Execute Ansible Playbook on Ansible Control Server 1
-      ansible.builtin.shell: /root/sch.sh
+      ansible.builtin.shell: /home/zaina/sch.sh
